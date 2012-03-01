@@ -22,6 +22,10 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 		if match:
 			return self._exec(match.group(1), dictGlob, dictLoc, tmplResults)
 
+        match = re.match("echo (.+)", self._data)
+        if match:
+            return self._echo(match.group(1), dictGlob, dictLoc, tmplResults)
+
 		match = re.match("set (.+)", self._data)
 		if match:
 			return self._setVariable(match.group(1), dictGlob, dictLoc, tmplResults)				
@@ -64,6 +68,7 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 		# We must eval python code before rendering childs,
 		# except if @ shorcut is in use
 		bRunChilds = True
+		content = ""
 		if '@' in pythonStmt:
 			# Use content to get replacement for @
 			bRunChilds = False
@@ -72,7 +77,6 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 		
 		try:
 			exec pythonStmt in dictGlob, dictLoc
-			content = ""
 		except Exception, excep:
 			traceback.print_exc()
 			tagId = tmplResults.addExceptionsError(traceback.format_exc())
@@ -82,6 +86,17 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 			return content + CaduceusTemplateEntity.render(self, dictGlob, dictLoc, tmplResults)
 		else:
 			return content
+
+	def _echo(self, pythonStmt, dictGlob, dictLoc, tmplResults):
+		content = ""
+		try:
+			content = eval(pythonStmt, dictGlob, dictLoc)
+		except Exception, excep:
+			traceback.print_exc()
+			tagId = tmplResults.addExceptionsError(traceback.format_exc())
+			content = '<span id="%s" class="failure"><pre class="exception">%s</pre></span>' % (tagId, traceback.format_exc())
+
+		return content + CaduceusTemplateEntity.render(self, dictGlob, dictLoc, tmplResults)
 		
 	def _setVariable(self, variable, dictGlob, dictLoc, tmplResults):
 		# Get variable value (ie: render childs)
