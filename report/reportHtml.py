@@ -81,7 +81,7 @@ class ReportHtml:
 			failureCount = tmpltResult.getAssertionTypeCount(CaduceusTemplateResults.FAILURE)
 			errorCount = tmpltResult.getAssertionTypeCount(CaduceusTemplateResults.ERROR)
 					
-			row  = ReportHtml._createTag("td", '<a href="%s">%s</a>' % (url, tmpltResult.getTitle()))
+			row  = ReportHtml._createTag("td", '<a href="%s">%s</a>' % (url, title))
 			row += ReportHtml._createTag("td", count, {'class': self._getCellCountClass(count, False)})
 			row += ReportHtml._createTag("td", failureCount, {'class': self._getCellCountClass(failureCount, True)})
 			row += ReportHtml._createTag("td", errorCount, {'class': self._getCellCountClass(errorCount, True)})
@@ -113,7 +113,7 @@ class ReportHtml:
 			
 			for errors in tmpltResult.getErrors():
 				rows += "        <tr>\n        "
-				rows += '<td><a href="%s#%s">%s - %s</a></td>' % (url, errors[0], tmpltResult.getTitle(), errors[0])
+				rows += '<td><a href="%s#%s">%s - %s</a></td>' % (url, errors[0], title, errors[0])
 				rows += '<td class="message"><pre>%s</pre></td>' % errors[1]
 				rows += '\n'
 				rows += "       </tr>\n"
@@ -135,7 +135,7 @@ class ReportHtml:
 			
 			for errors in tmpltResult.getFailures():
 				rows += "        <tr>\n        "
-				rows += '<td><a href="%s#%s">%s - %s</a></td>' % (url, errors[0], tmpltResult.getTitle(), errors[0])
+				rows += '<td><a href="%s#%s">%s - %s</a></td>' % (url, errors[0], title, errors[0])
 				rows += '<td class="message"><pre>%s</pre></td>' % errors[1]
 				rows += '\n'
 				rows += "       </tr>\n"
