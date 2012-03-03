@@ -1,8 +1,8 @@
 import os
 import shutil
-from caduceusHelpers import CaduceusHelper
-from transform.templateEntity import CaduceusResults, CaduceusTemplateResults
-from transform.template import CaduceusTemplate
+from caduceus.caduceusHelpers import CaduceusHelper
+from caduceus.transform.templateEntity import CaduceusResults, CaduceusTemplateResults
+from caduceus.transform.template import CaduceusTemplate
 from time import gmtime, strftime
 
 class ReportHtml:

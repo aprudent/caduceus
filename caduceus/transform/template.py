@@ -1,6 +1,6 @@
 from templateEntity import CaduceusTemplateEntity
 from templateHtmlTag import CaduceusTemplateHtmlTag
-from caduceusHelpers import CaduceusHelper
+from caduceus.caduceusHelpers import CaduceusHelper
 from time import gmtime, strftime
 import os
 

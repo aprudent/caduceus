@@ -3,11 +3,11 @@ import os
 import sys
 import shutil
 from optparse import OptionParser
-from caduceusHelpers import CaduceusHelper
-from transform.templateParser import CaduceusTemplateParser
-from transform.templateEntity import CaduceusResults, CaduceusTemplateResults
-from report.reportHtml import ReportHtml
-from report.reportJUnit import ReportJUnit
+from caduceus.caduceusHelpers import CaduceusHelper
+from caduceus.transform.templateParser import CaduceusTemplateParser
+from caduceus.transform.templateEntity import CaduceusResults, CaduceusTemplateResults
+from caduceus.report.reportHtml import ReportHtml
+from caduceus.report.reportJUnit import ReportJUnit
 
 class Caduceus:
 	REPORT_HTML = 0

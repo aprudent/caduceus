@@ -1,6 +1,6 @@
 import os
-from transform.templateEntity import CaduceusResults, CaduceusTemplateResults
-from transform.template import CaduceusTemplate
+from caduceus.transform.templateEntity import CaduceusResults, CaduceusTemplateResults
+from caduceus.transform.template import CaduceusTemplate
 
 class ReportJUnit:
 	def __init__(self, caduceusResult, rootPath, caduceusPath):
