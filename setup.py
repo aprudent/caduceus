@@ -4,8 +4,17 @@ setup(	name='caduceus',
 		description='Caduceus generator',
 		author='Alexandre Prudent',
 		author_email='padragn@gmail.com',
-		url='http://',
-		py_modules=['caduceus', 'caduceusHelpers', 'transform/'],
-		packages=['transform', 'report'],
-		data_files=[('resources', ['resources/*.*']),]
+		url='http://github.com/aprudent/caduceus',
+		
+		packages=['caduceus',
+				  'caduceus.transform',
+				  'caduceus.report',
+				  ],		
+		package_dir = {'caduceus': '.',
+					   'caduceus.transform': './transform',
+					   'caduceus.report': './report',
+					   },
+		package_data={'caduceus': ['resources/*.*']},
+		#py_modules=[''],
+		scripts=['caduceus.py']
 		)
