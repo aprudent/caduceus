@@ -18,7 +18,7 @@ class Caduceus:
 		self.path = os.path.abspath(path)
 		self.rootPath = self.path
 		self.outputPath = os.path.abspath(outputPath)
-		self.caduceusPath, _filename = os.path.split(os.path.abspath(__file__))
+		self.caduceusPath = CaduceusHelper.getPackagePath()
 		self._reports = reports
 		
 		self.results = CaduceusResults()

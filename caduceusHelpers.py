@@ -2,6 +2,14 @@ import shutil
 import os
 
 class CaduceusHelper:
+	
+	@staticmethod
+	def getPackagePath():
+		"""
+		Get caduceus package path. 
+		"""
+		caduceusPath, _filename = os.path.split(os.path.abspath(__file__))
+		return caduceusPath
 
 	@staticmethod
 	def getRelativePath(target, base):
