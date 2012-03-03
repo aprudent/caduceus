@@ -22,13 +22,13 @@ class Caduceus:
 		self._reports = reports
 		
 		self.results = CaduceusResults()
-        os.environ["CADUCEUS_OUTPUT"] = self.outputPath
-        os.environ["CADUCEUS_SRC"] = self.rootPath
+		os.environ["CADUCEUS_OUTPUT"] = self.outputPath
+		os.environ["CADUCEUS_SRC"] = self.rootPath
 
 	def run(self):
 		
 		if os.path.isfile(self.path):
-			print "Ouput must be a directory !"
+			print "Output must be a directory !"
 			#path, filename = os.path.split(self.path)
 			#self._processFile(path, filename, self.outputPath)
 			return
@@ -53,7 +53,7 @@ class Caduceus:
 		if self._reports[self.REPORT_JUNIT]:
 			report = ReportJUnit(self.results, self.outputPath, self.caduceusPath)
 			report.generate()
-        return self.results.failures == 0 and self.results.errors == 0
+		return self.results.failures == 0 and self.results.errors == 0
 			
 	def _processDirectory(self, path, outPath):
 		print "  Processing path %s..." % path
@@ -131,7 +131,7 @@ class Caduceus:
 
 if __name__ == "__main__":
 	parser = OptionParser()
-    parser.add_option("-o", "--output", dest="outputPath", help="Output path", metavar="OUTPUT", default="")
+	parser.add_option("-o", "--output", dest="outputPath", help="Output path", metavar="OUTPUT", default="")
 	parser.add_option("-s", "--src", dest="srcPath", help="Base directory", metavar="INPUT", default=None)
 	parser.add_option("-r", "--report-html", dest="reportHtml", help="Base directory", metavar="INPUT", default=True)
 	parser.add_option("-j", "--junit", dest="reportJUnit", help="Base directory", metavar="INPUT", default=False)
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 	if options.srcPath and options.outputPath:
 		caduceus = Caduceus(options.srcPath, options.outputPath,
 							[options.reportHtml, options.reportJUnit])
-        sys.exit([1, 0][caduceus.run()])
+		sys.exit([1, 0][caduceus.run()])
 	else:
 		parser.print_help()
 

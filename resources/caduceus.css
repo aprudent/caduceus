@@ -64,6 +64,7 @@ div.caduceus_report {
 	background-color: #FFFFFF;
 	border: 1px solid #808080;
 	-moz-border-radius: 10px;
+	box-shadow: 2px 2px 3px #BBBBBB;
 	padding: 8px;
 	margin: 10px;	
 }
