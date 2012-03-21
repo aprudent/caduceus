@@ -53,7 +53,7 @@ class CaduceusHelper:
 		@param resFilename: Resourse file name to copy
 		"""
 		relativePath = CaduceusHelper.getRelativePath(target, base)
-		return relativePath #.replace("\\", "/")
+		return relativePath.replace("\\", "/")
 			
 	@staticmethod
 	def copyResource(caduceusPath, outputPath, resFilename):
