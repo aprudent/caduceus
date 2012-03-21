@@ -69,6 +69,11 @@
         </p>
 		
         <p>
+            With collapsed empty tag <span concordion:set="#empty_var"/>
+            <span concordion:assertEquals="('working' + #empty_var)">working</span>
+        </p>
+		
+        <p>
             If the time is
             <span concordion:set="#time">09:00AM</span>
             <span concordion:execute="setCurrentTime(#time)" />

@@ -1,12 +1,17 @@
 import os
 from caduceus.transform.templateEntity import CaduceusResults, CaduceusTemplateResults
 from caduceus.transform.template import CaduceusTemplate
+from caduceus.caduceusHelpers import CaduceusHelper
 
 class ReportJUnit:
-	def __init__(self, caduceusResult, rootPath, caduceusPath):
+	def __init__(self, caduceusResult, rootPath, caduceusPath, packagePrefix):
 		self._result = caduceusResult
 		self._rootPath = rootPath
 		self._caduceusPath = caduceusPath
+		if packagePrefix:
+			self._packagePrefix = "%s." % packagePrefix
+		else:
+			self._packagePrefix = ""
 		
 	def generate(self):
 		content = self._xmlHeader()
@@ -32,10 +37,15 @@ class ReportJUnit:
 	def _xmlSuite(self, results):
 		content = ""
 		for tmpltResult in results.getTemplateResults():
-			_path, filename = os.path.split(tmpltResult.getTemplatePath())
 			
-			content += '<testsuite name="%s" errors="%d" failures="%d" tests="%d" >\n' \
-					% (filename,
+			#_path, filename = os.path.split(tmpltResult.getTemplatePath())
+			#filename, _ext = os.path.splitext(filename)
+			suiteName = CaduceusHelper.getHtmlRelativePath(tmpltResult.getTemplatePath(), self._rootPath)
+			suiteName, _ext = os.path.splitext(suiteName)
+			suiteName = suiteName.replace("/", ".")
+			
+			content += '<testsuite name="%s%s" errors="%d" failures="%d" tests="%d" >\n' \
+					% (self._packagePrefix, suiteName,
 					   tmpltResult.getAssertionTypeCount(CaduceusTemplateResults.ERROR),
 					   tmpltResult.getAssertionTypeCount(CaduceusTemplateResults.FAILURE),
 					   tmpltResult.getAssertionCount())

@@ -13,13 +13,14 @@ class Caduceus:
 	REPORT_HTML = 0
 	REPORT_JUNIT = 1
 	
-	def __init__(self, path, outputPath, reports):
+	def __init__(self, path, outputPath, reports, jUnitPackagePrefix):
 		
 		self.path = os.path.abspath(path)
 		self.rootPath = self.path
 		self.outputPath = os.path.abspath(outputPath)
 		self.caduceusPath = CaduceusHelper.getPackagePath()
 		self._reports = reports
+		self._jUnitPackagePrefix = jUnitPackagePrefix
 		
 		self.results = CaduceusResults()
 		os.environ["CADUCEUS_OUTPUT"] = self.outputPath
@@ -51,7 +52,7 @@ class Caduceus:
 			report.generate()
 		
 		if self._reports[self.REPORT_JUNIT]:
-			report = ReportJUnit(self.results, self.outputPath, self.caduceusPath)
+			report = ReportJUnit(self.results, self.outputPath, self.caduceusPath, self._jUnitPackagePrefix)
 			report.generate()
 		return self.results.failures == 0 and self.results.errors == 0
 			
@@ -136,12 +137,14 @@ if __name__ == "__main__":
 	parser.add_option("-r", "--report-html", action="store_true", dest="reportHtml", help="Generate HTML report", default=True)
 	parser.add_option("-q", "--no-report-html", action="store_false", dest="reportHtml", help="Do not generate HTML report")
 	parser.add_option("-j", "--junit", action="store_true", dest="reportJUnit", help="Generate JUnit report", default=False)
+	parser.add_option("-p", "--junit-package-prefix", dest="jUnitPackagePrefix", help="JUnit report package prefix", default="")
 
 	(options, args) = parser.parse_args()
 	
 	if options.srcPath and options.outputPath:
 		caduceus = Caduceus(options.srcPath, options.outputPath,
-							[options.reportHtml, options.reportJUnit])
+							[options.reportHtml, options.reportJUnit],
+							options.jUnitPackagePrefix)
 		sys.exit([1, 0][caduceus.run()])
 	else:
 		parser.print_help()
