@@ -110,7 +110,7 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 			tagId = tmplResults.addExceptionsError(traceback.format_exc())
 			return '<span id="%s" class="failure"><pre class="exception">%s</pre></span>' % (tagId, traceback.format_exc())
 		
-		return ""
+		return content
 	
 	def _loopFor(self, varName, listName, dictGlob, dictLoc, tmplResults):
 		content = ""
