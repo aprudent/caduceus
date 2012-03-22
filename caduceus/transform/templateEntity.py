@@ -1,5 +1,5 @@
 
-class CaduceusTemplateResults():
+class CaduceusTemplateResults:
 	SUCCESS = 1
 	FAILURE = 2
 	ERROR = 3
@@ -60,7 +60,7 @@ class CaduceusTemplateResults():
 				failures.append([assertion[0], assertion[2]])
 		return failures
 
-class CaduceusResults():
+class CaduceusResults:
 	def __init__(self):
 		self.assertions = 0
 		self.success = 0
@@ -89,7 +89,7 @@ class CaduceusResults():
 	def hasFailed(self):
 		return bool(self.getAssertionTypeCount(CaduceusTemplateResults.FAILURE) or self.getAssertionTypeCount(CaduceusTemplateResults.ERROR))
 		
-class CaduceusTemplateEntity():
+class CaduceusTemplateEntity:
 	def __init__(self):
 		self._parent = None
 		self._childs = []
