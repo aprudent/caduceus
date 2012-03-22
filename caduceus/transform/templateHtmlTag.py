@@ -1,4 +1,4 @@
-from .templateEntity import CaduceusTemplateEntity
+from caduceus.transform.templateEntity import CaduceusTemplateEntity
 
 class CaduceusTemplateHtmlTag(CaduceusTemplateEntity):
 	def __init__(self, tag, attribs, isEmptyTag = False):

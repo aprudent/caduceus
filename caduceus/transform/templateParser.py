@@ -3,11 +3,11 @@ if sys.version_info < (3, 0):
 	from HTMLParser import HTMLParser, HTMLParseError
 else:
 	from html.parser import HTMLParser, HTMLParseError
-from .template import CaduceusTemplate
-from .templateHtmlComment import CaduceusTemplateHtmlComment
-from .templateHtmlTag import CaduceusTemplateHtmlTag
-from .templateHtmlText import CaduceusTemplateHtmlText
-from .templatePython import CaduceusTemplatePython
+from caduceus.transform.template import CaduceusTemplate
+from caduceus.transform.templateHtmlComment import CaduceusTemplateHtmlComment
+from caduceus.transform.templateHtmlTag import CaduceusTemplateHtmlTag
+from caduceus.transform.templateHtmlText import CaduceusTemplateHtmlText
+from caduceus.transform.templatePython import CaduceusTemplatePython
 import os
 
 class CaduceusTemplateParser(HTMLParser):
