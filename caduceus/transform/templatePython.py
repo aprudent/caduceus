@@ -1,4 +1,4 @@
-from templateEntity import CaduceusTemplateEntity, CaduceusTemplateResults
+from .templateEntity import CaduceusTemplateEntity, CaduceusTemplateResults
 import re
 import traceback
 import os
@@ -76,8 +76,9 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 			pythonStmt = pythonStmt.replace("@", '"%s"' % content)
 		
 		try:
-			exec pythonStmt in dictGlob, dictLoc
-		except Exception, excep:
+			# exec pythonStmt in dictGlob, dictLoc
+			exec(pythonStmt, dictGlob, dictLoc)
+		except Exception as excep:
 			traceback.print_exc()
 			tagId = tmplResults.addExceptionsError(traceback.format_exc())
 			content = '<span id="%s" class="failure"><pre class="exception">%s</pre></span>' % (tagId, traceback.format_exc())
@@ -91,7 +92,7 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 		content = ""
 		try:
 			content = eval(pythonStmt, dictGlob, dictLoc)
-		except Exception, excep:
+		except Exception as excep:
 			traceback.print_exc()
 			tagId = tmplResults.addExceptionsError(traceback.format_exc())
 			content = '<span id="%s" class="failure"><pre class="exception">%s</pre></span>' % (tagId, traceback.format_exc())
@@ -104,8 +105,9 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 		
 		pythonStmt = '%s = "%s"' % (variable, content)
 		try:
-			exec pythonStmt in dictGlob, dictLoc
-		except Exception, excep:
+			#exec pythonStmt in dictGlob, dictLoc
+			exec(pythonStmt, dictGlob, dictLoc)
+		except Exception as excep:
 			traceback.print_exc()
 			tagId = tmplResults.addExceptionsError(traceback.format_exc())
 			return '<span id="%s" class="failure"><pre class="exception">%s</pre></span>' % (tagId, traceback.format_exc())
@@ -124,7 +126,7 @@ class CaduceusTemplatePython(CaduceusTemplateEntity):
 		return content
 	
 	def _include(self, partialName, dictGlob, dictLoc, tmplResults):
-		from templateParser import CaduceusTemplateParser
+		from .templateParser import CaduceusTemplateParser
 		content = ""
 		template = CaduceusTemplateParser.parsePatialFile(partialName, self._path, self._rootPath)
 		if template:

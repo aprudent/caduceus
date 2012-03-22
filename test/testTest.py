@@ -5,7 +5,7 @@ class testTest(testBase):
 		self.time = None
 
 	def getGreeting(self):
-		print self.time
+		print(self.time)
 		if self.time == "09:00AM":
 			return "Good Morning World!"
 		else:
@@ -15,5 +15,5 @@ class testTest(testBase):
 		return "Hello %s!" % name
 	
 	def setCurrentTime(self, time):
-		print "setCurrentTime "
+		print("setCurrentTime ")
 		self.time = time

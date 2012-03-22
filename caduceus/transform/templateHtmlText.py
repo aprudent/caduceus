@@ -1,4 +1,4 @@
-from templateEntity import CaduceusTemplateEntity
+from .templateEntity import CaduceusTemplateEntity
 
 class CaduceusTemplateHtmlText(CaduceusTemplateEntity):
 	def __init__(self, text):

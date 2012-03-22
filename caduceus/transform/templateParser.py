@@ -1,9 +1,13 @@
-from HTMLParser import HTMLParser, HTMLParseError
-from template import CaduceusTemplate
-from templateHtmlComment import CaduceusTemplateHtmlComment
-from templateHtmlTag import CaduceusTemplateHtmlTag
-from templateHtmlText import CaduceusTemplateHtmlText
-from templatePython import CaduceusTemplatePython
+import sys
+if sys.version_info < (3, 0):
+	from HTMLParser import HTMLParser, HTMLParseError
+else:
+	from html.parser import HTMLParser, HTMLParseError
+from .template import CaduceusTemplate
+from .templateHtmlComment import CaduceusTemplateHtmlComment
+from .templateHtmlTag import CaduceusTemplateHtmlTag
+from .templateHtmlText import CaduceusTemplateHtmlText
+from .templatePython import CaduceusTemplatePython
 import os
 
 class CaduceusTemplateParser(HTMLParser):
@@ -122,7 +126,7 @@ class CaduceusTemplateParser(HTMLParser):
 			# Check if partial is in subdirectory partial of root path
 			partialFullPath = os.path.join(rootPath, "partials", "_" + partialName)
 			if not os.path.exists(partialFullPath):
-				print "Can't locate partial '%s'" % partialName
+				print("Can't locate partial '%s'" % partialName)
 				return None
 			
 		content = CaduceusTemplateParser._getTemplateFileContent(partialFullPath)	

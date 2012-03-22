@@ -1,5 +1,5 @@
-from templateEntity import CaduceusTemplateEntity
-from templateHtmlTag import CaduceusTemplateHtmlTag
+from .templateEntity import CaduceusTemplateEntity
+from .templateHtmlTag import CaduceusTemplateHtmlTag
 from caduceus.caduceusHelpers import CaduceusHelper
 from time import gmtime, strftime
 import os

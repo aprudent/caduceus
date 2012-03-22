@@ -29,7 +29,7 @@ class Caduceus:
 	def run(self):
 		
 		if os.path.isfile(self.path):
-			print "Output must be a directory !"
+			print("Output must be a directory !")
 			#path, filename = os.path.split(self.path)
 			#self._processFile(path, filename, self.outputPath)
 			return
@@ -41,10 +41,10 @@ class Caduceus:
 			CaduceusHelper.copyResource(self.caduceusPath, self.outputPath, "caduceus.css")
 			
 		# Print statistics
-		print "Assertions: %d" % self.results.getAssertionCount()
-		print "Success: %d" % self.results.getAssertionTypeCount(CaduceusTemplateResults.SUCCESS)
-		print "Failures: %d" % self.results.getAssertionTypeCount(CaduceusTemplateResults.FAILURE)
-		print "Errors: %d" % self.results.getAssertionTypeCount(CaduceusTemplateResults.ERROR)
+		print("Assertions: %d" % self.results.getAssertionCount())
+		print("Success: %d" % self.results.getAssertionTypeCount(CaduceusTemplateResults.SUCCESS))
+		print("Failures: %d" % self.results.getAssertionTypeCount(CaduceusTemplateResults.FAILURE))
+		print("Errors: %d" % self.results.getAssertionTypeCount(CaduceusTemplateResults.ERROR))
 		
 		# Generate execution report
 		if self._reports[self.REPORT_HTML]:
@@ -57,7 +57,7 @@ class Caduceus:
 		return self.results.failures == 0 and self.results.errors == 0
 			
 	def _processDirectory(self, path, outPath):
-		print "  Processing path %s..." % path
+		print("  Processing path %s..." % path)
 		entries = os.listdir(path)
 		for entry in entries:
 			entryFullPath = os.path.join(path, entry)
@@ -67,7 +67,7 @@ class Caduceus:
 			elif os.path.isdir(entryFullPath) and (entry != ".svn"):
 				self._processDirectory(entryFullPath, os.path.join(outPath, entry))
 			else:
-				print "Not handling %s" % entryFullPath
+				print("Not handling %s" % entryFullPath)
 				
 				
 	def _processFile(self, filePath, fileName, outFilePath):
@@ -77,7 +77,7 @@ class Caduceus:
 		
 		if ext == ".html":
 			if fileName[0] != "_":
-				print "  Processing file %s..." % inputFullPath
+				print("  Processing file %s..." % inputFullPath)
 			
 				template = CaduceusTemplateParser.parseTemplateFile(inputFullPath, self.rootPath, self.caduceusPath)	
 				if template:
@@ -94,13 +94,15 @@ class Caduceus:
 							controllerName = controllerName + "Test"
 							
 							sys.path.append(os.path.dirname(inputFullPath))
-							exec ("from %s import %s" % (controllerName, controllerName)) in dictGlob, dictLoc
+							#exec ("from %s import %s" % (controllerName, controllerName)) in dictGlob, dictLoc
+							exec ("from %s import %s" % (controllerName, controllerName), dictGlob, dictLoc)
 
 							# We must copy local dictionnary into global, to allow some symbols resolution
 							dictGlob.update(dictLoc)
 							
 							# Instanciate a controller in parsing context 
-							exec ("__caduceus_controler__ = %s()" % controllerName) in dictGlob, dictLoc
+							#exec ("__caduceus_controler__ = %s()" % controllerName) in dictGlob, dictLoc
+							exec ("__caduceus_controler__ = %s()" % controllerName, dictGlob, dictLoc)
 							
 							# Bind all controller public methods as global methods 
 							for key in dir(dictLoc[controllerName]):
@@ -108,9 +110,9 @@ class Caduceus:
 									proc = eval("__caduceus_controler__.%s" % key, dictGlob, dictLoc)
 									dictLoc[key] = proc
 						except IOError:
-							print "Warning: No controller file for '%s'" % inputFullPath
+							print("Warning: No controller file for '%s'" % inputFullPath)
 						except ImportError:
-							print "Warning: No controller file for '%s'" % inputFullPath
+							print("Warning: No controller file for '%s'" % inputFullPath)
 							
 						# Render template using context
 						tmplResults = CaduceusTemplateResults(outputFullPath)
@@ -121,11 +123,11 @@ class Caduceus:
 					finally:
 						outputFile.close()
 			else:
-				print "  Skipping partial %s" % inputFullPath
+				print("  Skipping partial %s" % inputFullPath)
 		elif ext not in [".py", ".pyc"]:
 			# File may be stylesheet, javasript or other resource
 			# copy as it
-			print "  Copy file %s..." % inputFullPath
+			print("  Copy file %s..." % inputFullPath)
 			
 			CaduceusHelper.ensurePathExists(outFilePath)		
 			shutil.copyfile(inputFullPath, outputFullPath)
