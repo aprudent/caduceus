@@ -49,7 +49,7 @@ class CaduceusHelper:
 	@staticmethod
 	def getHtmlRelativePath(target, base):
 		""" Copy a caduceus resource file inside output generation path.
-		@param outputPath: Absolute path for gnerated output
+		@param outputPath: Absolute path for generated output
 		@param resFilename: Resourse file name to copy
 		"""
 		relativePath = CaduceusHelper.getRelativePath(target, base)
@@ -73,10 +73,12 @@ class CaduceusHelper:
 		@param outputPath: Absolute path for gnerated output
 		@param resFilename: Resourse file name to copy
 		"""
-		relativePath = CaduceusHelper.getHtmlRelativePath(htmlFilePath, outputPath)
-		return "%scaduceus/%s" % (relativePath, resFilename)
+		relativePath = CaduceusHelper.getHtmlRelativePath(outputPath, htmlFilePath)
+		if relativePath:
+		    return "%s/caduceus/%s" % (relativePath, resFilename)
 
-		
+		return "caduceus/%s" % (resFilename)
+
 	@staticmethod
 	def ensurePathExists(path):
 		try:

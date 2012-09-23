@@ -121,6 +121,12 @@ div.caduceus_report {
 	color: #A80022;
 }
 
+.caduceus_report td.time {
+	text-align: right;
+	font-weight: normal;
+    color: #00422c;
+}
+
 .caduceus_report .total td {
 	text-align: right;
 	font-weight: bold;
